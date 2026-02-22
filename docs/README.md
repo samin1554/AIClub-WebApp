@@ -1,4 +1,4 @@
-# AI Club Web App Documentation
+# AI Club Web App 
 
 Welcome to the AI Club Web App documentation! This directory contains everything you need to understand, build, and deploy the app.
 
