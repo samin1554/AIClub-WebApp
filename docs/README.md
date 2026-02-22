@@ -111,14 +111,6 @@ An AI Club web app with three pillars:
 
 ## 📅 Development Phases
 
-### MVP (Weeks 1-11)
-- Sprint 0: Foundations
-- Sprint 1: Showcase (projects, members)
-- Sprint 2: Create (ideas, requests)
-- Sprint 3: Engage (events, chatbot)
-- Sprint 4: Hardening
-- Sprint 5: Launch
-
 ### Phase 2 (Post-Launch)
 - Realtime whiteboard
 - Spotify integration
