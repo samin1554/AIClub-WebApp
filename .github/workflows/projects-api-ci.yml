@@ -1,0 +1,61 @@
+name: Projects API CI
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - 'apps/projects-api/**'
+  pull_request:
+    branches: [develop]
+    paths:
+      - 'apps/projects-api/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    services:
+      postgres:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: test
+          POSTGRES_DB: test
+        ports:
+          - 5435:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          
+      - name: Install Poetry
+        run: |
+          pip install poetry
+          
+      - name: Install dependencies
+        working-directory: apps/projects-api
+        run: |
+          poetry install
+          
+      - name: Run linters
+        working-directory: apps/projects-api
+        run: |
+          poetry run black --check .
+          poetry run isort --check .
+          poetry run mypy .
+          
+      - name: Run tests
+        working-directory: apps/projects-api
+        env:
+          DATABASE_URL: postgresql://test:test@localhost:5432/test
+        run: |
+          poetry run pytest
