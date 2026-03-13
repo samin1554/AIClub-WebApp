@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  projects-db:
+    image: postgres:15-alpine
+    container_name: aiclub-projects-db
+    environment:
+      POSTGRES_USER: aiclub
+      POSTGRES_PASSWORD: aiclub
+      POSTGRES_DB: aiclub_projects
+    ports:
+      - "5435:5432"
+    volumes:
+      - projects-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U aiclub"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - aiclub-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: aiclub-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - aiclub-network
+    volumes:
+      - redis-data:/data
+
+volumes:
+  projects-db-data:
+  redis-data:
+
+networks:
+  aiclub-network:
+    driver: bridge
