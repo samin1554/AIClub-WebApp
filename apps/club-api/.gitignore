@@ -1,0 +1,17 @@
+# Environment
+.env
+
+# SQLite database
+*.db
+*.db-shm
+*.db-wal
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+
+# Poetry virtualenv (if local)
+.venv/
